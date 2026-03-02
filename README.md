@@ -6,7 +6,7 @@
 
 ---
 
-## Task 2
+## What This Is
 
 For this task I trained reinforcement learning agents to play the Chef's Hat card game. I used MaskablePPO as my RL algorithm and a Variational Autoencoder (VAE) as the generative AI part. The idea was to pre-train the VAE on game observations, then use those weights to initialise the PPO network before training starts, and see if that helps compared to just starting with random weights.
 
@@ -104,7 +104,7 @@ Both agents trained for 500,000 steps against 3 random opponents.
 | Avg Finishing Position | 0.04 | 0.05 | ~1.50 |
 | Performance Score | 1.4172 | 1.4403 | - |
 
-Both agents ended up at 100% win rate which shows the training worked well. The difference between them is very small because they both maxed out against random opponents , this is a ceiling effect. Looking at the learning curves (graph 1) the GenAI agent does seem to learn a bit faster in the first few hundred episodes which is what the VAE initialisation is supposed to do.
+Both agents ended up at 100% win rate which shows the training worked well. The difference between them is very small because they both maxed out against random opponents - this is a ceiling effect. Looking at the learning curves (graph 1) the GenAI agent does seem to learn a bit faster in the first few hundred episodes which is what the VAE initialisation is supposed to do.
 
 ### Experiment 2 - Does opponent difficulty matter?
 
@@ -120,15 +120,15 @@ Win rates dropped compared to experiment 1 which shows the mixed opponents are g
 
 ---
 
-## Reading the Graphs
+## How to Interpret the Results
 
-- **Graph 1** - win rate over training vs random opponents. Both lines go from 0.25 up to nearly 1.0 very quickly
-- **Graph 2** - reward over training. Starts near 0 and climbs to around 1.0, shows the reward fix is working
-- **Graph 4** - bar chart comparing all 4 agents. Good overview of both experiments side by side
-- **Graph 5** - VAE loss going down over 30 epochs. Shows the VAE learned something before RL training started
-- **Graph 6** - win rate over training vs mixed opponents. More noisy and slower than graph 1
-- **Graph 7** - side by side comparison of both agents in both conditions
-- **Graph 8** - summary of everything, Best image to look at
+The key finding from experiment 1 is that both agents learned to play far better than random. A random agent wins 1 in 4 games (0.25) just by chance. Both trained agents reached 100% win rate, which is a 4x improvement and shows the RL training worked. The fact that both agents are nearly identical in final performance is because random opponents are too easy, once you learn a basic strategy you beat them almost every time. This is called a ceiling effect and means the difference between the two agents cannot be seen at the end of training. Looking at graph 1 though, the GenAI agent does seem to pick up a good strategy slightly faster in the early episodes, which is what the VAE initialisation is intended to do.
+
+Experiment 2 gives more interesting results. Against the mixed opponents the win rate drops to 0.96 and 0.95 respectively. This shows the agents are not just memorising a fixed strategy, they are actually adapting to different opponent behaviours. The average finishing position also gets worse (higher number means worse), going from around 0.04 to 0.66, which means the agents are finishing 2nd more often instead of 1st. The performance score also drops from around 1.42 to around 1.20. All of this together confirms that harder opponents make the task genuinely more difficult, which is the expected result.
+
+The VAE loss graph (graph 5) is important because it shows the generative AI component actually learned something. The loss drops quickly in the first few epochs and then flattens out, which means the VAE converged to a stable representation of the game states. If it had not learned anything useful, the initialisation would not help at all.
+
+One limitation worth noting is that the mixed opponents were only trained for 200,000 steps compared to 500,000 for the random opponents, so a longer run might show slightly different results. Also only one training seed was used so the results could vary if you run it again.
 
 ---
 
