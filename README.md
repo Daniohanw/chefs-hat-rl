@@ -120,7 +120,7 @@ Win rates dropped compared to experiment 1 which shows the mixed opponents are g
 
 ---
 
-## How to Interpret the Results
+## Results Interpretation 
 
 The key finding from experiment 1 is that both agents learned to play far better than random. A random agent wins 1 in 4 games (0.25) just by chance. Both trained agents reached 100% win rate, which is a 4x improvement and shows the RL training worked. The fact that both agents are nearly identical in final performance is because random opponents are too easy, once you learn a basic strategy you beat them almost every time. This is called a ceiling effect and means the difference between the two agents cannot be seen at the end of training. Looking at graph 1 though, the GenAI agent does seem to pick up a good strategy slightly faster in the early episodes, which is what the VAE initialisation is intended to do.
 
